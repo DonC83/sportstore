@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Demo</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="bootstrap-theme.css" />
+</head>
+<body ng-app="exampleApp">
+    <div class="panel">
+        <div class="page-header">
+            <h3>AngularJS App</h3>
+        </div>
+        <h4 ng-controller="dayCtrl" highlight="Monday">Today is {{day || "(unknown)" | dayName}}</h4>
+        <h4 ng-controller="tomorrowCtrl">Tomorrow is {{day || "(unknown)" | dayName }}</h4>
+    </div>
+
+</body>
+<script src="angular.js"></script>
+<script src="ngmodules/exampleApp.js"></script>
+<script src="controllers.js"></script>
+<script src="filters.js"></script>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ajaxApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <link rel="stylesheet" href="bootstrap.css"/>
+    <link rel="stylesheet" href="bootstrap-theme.css"/>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-striped table-bordered">
+                <thead><tr><th>Name</th><th>Category</th><th>Price</th></tr></thead>
+                <tbody>
+                <tr ng-hide="products.length">
+                    <td colspan="3" class="text-center">No Data</td>
+                </tr>
+                <tr ng-repeat="item in products">
+                    <td>{{item.name}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.price | currency}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <p><button class="btn btn-primary"
+                       ng-click="loadData()">Load Data</button></p>
+        </div>
+    </div>
+
+<script src="angular.js"></script>
+<script>
+    angular.module("ajaxApp",[])
+            .config(function($httpProvider) {
+                $httpProvider.interceptors.push(function() {
+                    return {
+                        request : function(config) {
+                            config.url = "productData.json";
+                            return config;
+                        },
+                        response : function(response) {
+                            console.log("Data count " + response.data.length);
+                            return response;
+                        }
+                    }
+                })
+            })
+            .controller("defaultCtrl", function($scope, $http) {
+//                    $scope.loadData =  function() {
+//                        $http.get("productData.json").success(function(resp) {
+//                            //the return object from success is the data returned from the call.
+//                            //Doing .then(fn, fn) returns the response object which provides more information. See below.
+//                            $scope.products = data;
+//                        })
+//                    };
+                $scope.loadData = function() {
+                    $http.get("productDadsdssdsta.json").then(function (resp) {
+                        console.log("Status: " + resp.status);
+                        console.log("Type: " + resp.headers("content-type"));
+                        console.log("Length: " + resp.headers("content-length"));
+                        $scope.products = resp.data
+                    },
+                    function(errResp) {
+                        console.log(errResp);
+                    })
+                }
+            })
+</script>
+</body>
+</html>
